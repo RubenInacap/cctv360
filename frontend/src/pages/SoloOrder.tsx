@@ -74,10 +74,15 @@ const SoloOrder = () => {
                         </td>
 
                         <td className="px-4 py-3">
-                            {data && data.created_at !== undefined || null && (
-                                <>{data.created_at.slice(0, 10)}</>
+                            {data && data.created_at !== undefined ? (
+                                <>
+                                    {new Date(data.created_at).toLocaleString()}
+                                </>
+                            ) : (
+                                <>Fecha no disponible</>
                             )}
                         </td>
+
 
                         <td className="px-4 py-3">
                             {data && data.delivered_at !== undefined || null && (
@@ -87,10 +92,10 @@ const SoloOrder = () => {
 
                         <td className="px-4 py-3">
                             <div className="flex justify-center gap-4">
-                            {data && data.direccion_envio !== undefined && (
-                                <>
-                                {data.direccion_envio.ciudad}
-                                </>
+                                {data && data.direccion_envio !== undefined && (
+                                    <>
+                                        {data.direccion_envio.ciudad}
+                                    </>
                                 )}
                             </div>
                         </td>
@@ -98,10 +103,10 @@ const SoloOrder = () => {
                         <td className="px-4 py-3">
                             <div className="flex justify-center gap-4">
 
-                            {data && data.direccion_envio !== undefined && (
-                            <>
-                                {data.direccion_envio.direccion}
-                                </>
+                                {data && data.direccion_envio !== undefined && (
+                                    <>
+                                        {data.direccion_envio.direccion}
+                                    </>
                                 )}
                             </div>
                         </td>
@@ -109,10 +114,10 @@ const SoloOrder = () => {
                         <td className="px-4 py-3">
                             <div className="flex justify-center gap-4">
 
-                            {data && data.direccion_envio !== undefined && (
-                            <>
-                                {data.direccion_envio.codigo_postal}
-                                </>
+                                {data && data.direccion_envio !== undefined && (
+                                    <>
+                                        {data.direccion_envio.codigo_postal}
+                                    </>
                                 )}
                             </div>
                         </td>
@@ -136,27 +141,27 @@ const SoloOrder = () => {
                     </tr>
                 </thead>
 
-            
+
                 <tbody>
-                {data.order_items && data.order_items.map((p: any) => (
-                    
-                    <tr className="border-b dark:border-gray-700">
-                        <th
-                            scope="row"
-                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                        >
-                            {p.productos}
-                        </th>
+                    {data.order_items && data.order_items.map((p: any) => (
 
-                        <td className="px-4 py-3">
-                            {p.quantity}
-                        </td>
+                        <tr className="border-b dark:border-gray-700">
+                            <th
+                                scope="row"
+                                className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                                {p.productos}
+                            </th>
 
-                        <td className="px-4 py-3">
-                            $ {p.precio}
-                        </td>
-                    </tr>
-                ))}
+                            <td className="px-4 py-3">
+                                {p.quantity}
+                            </td>
+
+                            <td className="px-4 py-3">
+                                $ {p.precio}
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </div>

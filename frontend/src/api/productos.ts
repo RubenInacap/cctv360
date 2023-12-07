@@ -1,7 +1,10 @@
 import { Producto } from "../Interfaces";
 import { authAxios, axi } from "./useAxios";
 
-
+export const create_review = async (descripcion: string, rating: number, productId: number) => {
+    await authAxios.post(`/productos/review/${productId}/`, {descripcion, rating})
+ };
+ 
 export const cate_api = async (categoria: string) => {
     const response = await authAxios.get(`/productos/cate/${categoria}/`)
     return response.data;

@@ -1,15 +1,27 @@
 from django.shortcuts import render
 
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics, status
 
 from django.utils.text import slugify
 
 from pagination import CustomPagination
 from . models import Producto
-from . serializers import ProductoSerializer
+from . serializers import ProductoSerializer, ReviewsSerializer
 
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def create_review(request, pk):
+    serializer = ReviewsSerializer(data=request.data)
+    producto = Producto.objects.get(pk=pk)
+    if serializer.is_valid():
+        serializer.save(user=request.user, producto=producto)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def get_prod_by_cate(request, categoria):

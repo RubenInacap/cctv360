@@ -10,7 +10,7 @@ class DireccionSerializer(serializers.ModelSerializer):
 
 class OrderItemSerializer(serializers.ModelSerializer):
 
-    producto = serializers.ReadOnlyField(source='productos.nombre')
+    productos = serializers.ReadOnlyField(source='productos.nombre')
 
     class Meta:
         model = Orderitem

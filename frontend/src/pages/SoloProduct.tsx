@@ -4,13 +4,13 @@ import { get_solo } from "../api/productos";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useCartStore } from "../store/cart";
-import { Producto } from "../Interfaces";
 
+import Reviews from "../components/Reviews";
 
 
 const SoloProduct = () => {
 
-
+    
     const { slug } = useParams();
 
     const { data, isError, isLoading } = useQuery({
@@ -19,6 +19,8 @@ const SoloProduct = () => {
         queryFn: () => get_solo(slug || ''),
 
     })
+
+    console.log(data)
 
     const addToCart = useCartStore(state => state.addToCart)
 
@@ -64,6 +66,7 @@ const SoloProduct = () => {
                     alt="office content 1"
                 />
             </div>
+            <Reviews productId={data.id} reviews={data.reviews}/>
         </div>
     );
 };
