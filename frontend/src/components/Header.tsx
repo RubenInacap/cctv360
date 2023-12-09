@@ -69,12 +69,13 @@ const Header = () => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src={Logo}
-                    alt="Logo"
-                  />
+                <Link to={'/'}>
+                    <img
+                      className="hidden h-8 w-auto lg:block"
+                      src={Logo}
+                      alt="Logo"
+                    />
+                  </Link>
                 </div>
 
 
@@ -144,7 +145,7 @@ const Header = () => {
                   pl-10 text-sm text-gray-900 border border-gray-300 rounded-full 
                   bg-gray-50 dark:bg-gray-700 outline-none
                   dark:border-gray-600 dark:placeholder-gray-400 dark:text-white 
-                  " placeholder="Search..."/>
+                  " placeholder="Buscar..."/>
               </div>
 
               <div className="absolute space-x-2 inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -231,7 +232,7 @@ const Header = () => {
                 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full 
                 bg-gray-50 dark:bg-gray-700 outline-none
                 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  
-                " placeholder="Search..."/>
+                " placeholder="Buscar..."/>
             </div>
 
             <div className="space-y-1 px-2 pb-3 pt-2">

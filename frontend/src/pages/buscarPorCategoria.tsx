@@ -86,7 +86,7 @@ const SearchByCate = () => {
         focus:outline-none focus:ring-blue-300 dark:bg-blue-600 
         dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                    View
+                    Ver
                         <svg
                             aria-hidden="true"
                             className="w-4 h-4 ml-2 -mr-1"

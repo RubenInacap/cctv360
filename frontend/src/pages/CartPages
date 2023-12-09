@@ -9,6 +9,12 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 const CartPage = () => {
 
+    const [formData, setFormData] = useState({
+        direccion: '',
+        ciudad: '',
+        codigoPostal: ''  
+      });
+
     const removeFromCart = useCartStore(state => state.removeFromCart)
     const addToCart = useCartStore(state => state.addToCart)
     const cart = useCartStore(state => state.cart);
@@ -56,15 +62,15 @@ const CartPage = () => {
             }
         });
     };
+    const submitOrder = async () => {
+        console.log("Datos del formulario:", {
+            order_items: cart,
+            precio_total: precio_total,
+            direccion: direccion,
+            ciudad: ciudad,
+            codigo_postal: codigo_postal,
+        });
 
-    const onApprove = (data: any, actions: any) => {
-        console.log(data);
-        return actions.order.capture(handleSubmit());
-    };
-
-
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
         createOrderMut.mutate({
             order_items: cart,
             precio_total: precio_total,
@@ -73,7 +79,21 @@ const CartPage = () => {
             codigo_postal: codigo_postal,
         });
     };
+
+    const handleSubmit = (e:any) => {
+        e.preventDefault();
+        submitOrder();
+    };
     console.log(createOrderMut)
+
+    const onApprove = async (data:any, actions:any) => {
+
+        await submitOrder();
+
+        return actions.order.capture();
+
+    };
+
 
 
 
@@ -86,25 +106,15 @@ const CartPage = () => {
                             <div className="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
                                 <div className="flex items-center flex-1 space-x-4">
                                     <h5>
-                                        <div className="flex items-center text-gray-800 dark:text-gray-300">
-                                            <span className="text-xl font-bold">
-                                                Productos en su carro:
-                                            </span>
-                                            <span className="text-blue-500 text-xl font-bold ml-2">
-                                                {cart.length}
-                                            </span>
-                                        </div>
+                                        <span className="text-gray-300 text-xl font-bold">
+                                            Productos en su carro: {cart.length}
+                                        </span>
                                     </h5>
                                     <h5>
-                                        <div className="text-gray-800 dark:text-gray-300 text-xl font-bold bg-white dark:bg-gray-800 p-4">
-                                            <span className="mr-2">Total:</span>
-                                            {precio_total === null ? (
-                                                <span className="text-red-500">$0</span>
-                                            ) : (
-                                                <span className="text-blue-500">${precio_total}</span>
-                                            )}
-                                        </div>
-
+                                        <span className="text-gray-300 text-xl font-bold">
+                                            Total: {precio_total === null && "0"}{" "}
+                                            $ {precio_total}
+                                        </span>
                                     </h5>
                                 </div>
                             </div>
@@ -210,14 +220,11 @@ const CartPage = () => {
                                                                 />
                                                             </div>
                                                             <button
-                                                                onClick={() => {
-                                                                    if (productos.quantity < productos.contar_stock) {
-                                                                        addToCart(productos);
-                                                                    } else {
-                                                                        // Muestra un mensaje de error o toma alguna acción adecuada
-                                                                        toast.error("No hay suficiente stock disponible");
-                                                                    }
-                                                                }}
+                                                                onClick={() =>
+                                                                    addToCart(
+                                                                        productos
+                                                                    )
+                                                                }
                                                                 className="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                                                                 type="button"
                                                             >
@@ -295,7 +302,21 @@ const CartPage = () => {
                                     type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Codigo Postal" />
                             </div>
 
-                            <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Crear Orden</button>
+                            <div className="ml-[180px]">
+                                <PayPalScriptProvider
+                                    options={{
+                                        clientId: "AUoQ-EnzCs0YV7ZpDsakJvU1IvgVEokgmolaNhWDGAgk1K4vrTd9QfRzSzwxuyP53kBqhUaRGqyIy_D2",
+                                        currency: "USD",
+                                        commit: true
+                                    }}
+                                >
+                                    <PayPalButtons
+                                        createOrder={(data: any, actions: any) => createOrder(data, actions)}
+                                        onApprove={(data: any, actions: any) => onApprove(data, actions)}
+                                        style={{ layout: "horizontal" }}
+                                    />
+                                </PayPalScriptProvider>
+                            </div>
                         </form>
                     </div>
                 </div>

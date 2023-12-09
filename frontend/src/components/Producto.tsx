@@ -61,7 +61,7 @@ const Productos = ({ results }: Props) => {
             <th scope="col" className="px-4 py-3">Precio</th>
             <th scope="col" className="px-4 py-3">Stock</th>
             <th scope="col" className="px-4 py-3 flex items-center justify-center gap-4">
-              Actions
+              Acciones
               <Link to="add">
                 <AiFillPlusSquare size={22} className="text-green-300 cursor-pointer" />
               </Link>

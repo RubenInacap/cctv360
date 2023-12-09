@@ -46,7 +46,7 @@ const Reviews = ({ productId, reviews }: Props) => {
                         <div className="relative p-4 w-full max-w-2xl h-full md:h-auto">
                             <div className="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                                 <div className="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">ProductCa
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                                         Agregar Review
                                     </h3>
                                     <button
@@ -67,7 +67,7 @@ const Reviews = ({ productId, reviews }: Props) => {
                                                 clip-rule="evenodd"
                                             ></path>
                                         </svg>
-                                        <span className="sr-only">Close modal</span>
+                                        <span className="sr-only">Cerrar modal</span>
                                     </button>
                                 </div>
 
@@ -86,7 +86,7 @@ const Reviews = ({ productId, reviews }: Props) => {
                                                 onChange={(e) => setDescripcion(e.target.value)}
                                                 type="text"
                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                                placeholder="Type here"
+                                                placeholder="Escriba aquí"
                                             />
                                         </div>
 

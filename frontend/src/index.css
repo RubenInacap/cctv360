@@ -14,3 +14,8 @@ button {
   .off {
     color: #ccc;
   }
+
+  .product-image {
+    height: 400px; /* Set your desired fixed height */
+    object-fit: cover; /* Preserve aspect ratio and cover the entire space */
+}

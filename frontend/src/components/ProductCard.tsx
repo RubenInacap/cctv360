@@ -16,7 +16,7 @@ const ProductCard = ({ productos }: Props) => {
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <Link to={`/productos/${productos.slug}`}>
                     <img
-                        className="rounded-t-lg"
+                        className="rounded-t-lg product-image"
                         src={`${import.meta.env.VITE_BACKEND_URL}${productos.image}`}
                         alt=""
                     />
