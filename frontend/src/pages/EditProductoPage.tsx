@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { edit_product, get_solo_prod } from '../api/productos';
 import { Link,useNavigate, useParams} from 'react-router-dom';
 import toast from 'react-hot-toast';
+import Loader from '../components/Loader';
 
 const EditProductosPage = () => {
     const [nombre, setName] = useState<string>('');
@@ -121,7 +122,7 @@ const EditProductosPage = () => {
             setIsHovered(false)
     }
 
-    if(EditProdMutation.isLoading) return <p>Loading.....</p>
+    if(EditProdMutation.isLoading) return <Loader/>
     return(
     <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 ">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[700px] w-[600px] rounded-md">

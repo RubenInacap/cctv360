@@ -217,7 +217,7 @@ const CartPage = () => {
                                                             >
                                                                 <span className="sr-only">
                                                                     Cantidad
-                                                                    button
+                                                                    Boton
                                                                 </span>
                                                                 <svg
                                                                     className="w-4 h-4"

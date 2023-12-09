@@ -6,12 +6,25 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics, status
 
 from django.utils.text import slugify
+from django.shortcuts import get_object_or_404
 
 from pagination import CustomPagination
 from . models import Producto
 from . serializers import ProductoSerializer, ReviewsSerializer
 
 
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])  # Requiere autenticación para acceder a la vista
+def delete_review(request, pk):
+    review = get_object_or_404(Reviews, pk=pk)
+
+    # Verifica si el usuario actual es el propietario de la revisión o es un administrador
+    if request.user == review.user or request.user.is_staff:
+        review.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response({"error": "No tienes permisos para eliminar esta revisión."}, status=status.HTTP_403_FORBIDDEN)
+    
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_review(request, pk):

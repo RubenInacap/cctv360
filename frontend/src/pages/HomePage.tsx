@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useInView } from "react-intersection-observer";
 import SearchResults from "./SearchResults";
 import { useSearchStore } from "../store/search";
+import Loader from "../components/Loader";
 
 const HomePage = () =>{
     const {ref, inView} = useInView()
@@ -50,7 +51,7 @@ const HomePage = () =>{
     
                         {!isLoading && data?.pages.length === 0 && (
                             <p className="text-xl text-slate-800 dark:text-slate-200">
-                                No more results
+                                No hay mas resultados
                             </p>
                         )}
                         {!isLoading &&
@@ -59,7 +60,7 @@ const HomePage = () =>{
                             hasNextPage && (
                                 <div ref={ref}>
                                     {isLoading || isFetchingNextPage ? (
-                                        <p>Loading .....</p>
+                                        <Loader />
                                     ) : null}
                                 </div>
                             )}

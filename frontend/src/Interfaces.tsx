@@ -7,7 +7,7 @@ export interface Producto {
   valoracion?: number
   contar_stock: number
   categoria: string
-  image: File | null;
+  image?: File | null;
   quantity?: number
   numero_reviews?: number
 }
