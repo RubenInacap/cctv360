@@ -21,6 +21,11 @@ const CartPage = () => {
     const [direccion, setDireccion] = useState('');
     const [ciudad, setCiudad] = useState('');
     const [codigo_postal, setCodigo_Postal] = useState('');
+    const [formErrors, setFormErrors] = useState({
+        direccion: '',
+        ciudad: '',
+        codigo_postal: '',
+    });
 
     const navigate = useNavigate()
     const queryClient = useQueryClient();
@@ -41,6 +46,29 @@ const CartPage = () => {
         },
     });
 
+
+    const validateForm = () => {
+        let valid = true;
+        const newErrors = { direccion: '', ciudad: '', codigo_postal: '' };
+
+        if (!direccion.trim()) {
+            newErrors.direccion = 'La dirección es requerida';
+            valid = false;
+        }
+
+        if (!ciudad.trim()) {
+            newErrors.ciudad = 'La ciudad es requerida';
+            valid = false;
+        }
+
+        if (!codigo_postal.trim()) {
+            newErrors.codigo_postal = 'El código postal es requerido';
+            valid = false;
+        }
+
+        setFormErrors(newErrors);
+        return valid;
+    };
     const createOrder = (data: any, actions: any) => {
         console.log(data)
         return actions.order.create({
@@ -62,18 +90,21 @@ const CartPage = () => {
         return actions.order.capture(handleSubmit());
     };
 
-
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        createOrderMut.mutate({
-            order_items: cart,
-            precio_total: precio_total,
-            direccion: direccion,
-            ciudad: ciudad,
-            codigo_postal: codigo_postal,
-        });
+
+        if (validateForm()) {
+            // Si el formulario es válido, realiza la acción
+            createOrderMut.mutate({
+                order_items: cart,
+                precio_total: precio_total,
+                direccion: direccion,
+                ciudad: ciudad,
+                codigo_postal: codigo_postal,
+            });
+        }
     };
-    console.log(createOrderMut)
+
 
 
 
@@ -271,7 +302,10 @@ const CartPage = () => {
                                         console.log('Dirección actualizada:', e.target.value);
                                     }}
                                     value={direccion}
-                                    type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Direccion" />
+                                    type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Direccion" 
+                                    
+                                    />
+                                     {formErrors.direccion && <p className="text-red-500 text-sm mt-1">{formErrors.direccion}</p>}
                             </div>
 
                             <div>
@@ -283,6 +317,7 @@ const CartPage = () => {
                                     }}
                                     value={ciudad}
                                     type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Ciudad" />
+                            {formErrors.ciudad && <p className="text-red-500 text-sm mt-1">{formErrors.ciudad}</p>}
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo Postal</label>
@@ -293,6 +328,7 @@ const CartPage = () => {
                                     }}
                                     value={codigo_postal}
                                     type="text" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Codigo Postal" />
+                            {formErrors.codigo_postal && <p className="text-red-500 text-sm mt-1">{formErrors.codigo_postal}</p>}
                             </div>
 
                             <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Crear Orden</button>

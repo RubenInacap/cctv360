@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { post_product } from '../api/productos';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import Loader from '../components/Loader';
 
 const AddProductosPage = () => {
     const [nombre, setName] = useState<string>('');
@@ -54,27 +55,72 @@ const AddProductosPage = () => {
     };
 
     const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
-    };
-
+        const valueName = event.target.value;
+        if (valueName.length <= 25) {
+          setName(valueName);
+        } else {
+          // Muestra un mensaje de advertencia o realiza alguna acción adicional
+          console.log("¡El nombre no puede tener más de 100 caracteres!");
+        }
+      };
     const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setCategory(event.target.value);
     };
 
     const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setDescription(event.target.value);
+        const valueName = event.target.value;
+        if (valueName.length <= 300) {
+          setDescription(valueName);
+        } else {
+          // Muestra un mensaje de advertencia o realiza alguna acción adicional
+          console.log("La descripcion no puede tener más de 300 caracteres!");
+        }
     };
 
     const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newNumber = parseInt(event.target.value, 10);
+
         // Set countInStock to a maximum value of 1000
+
+        const inputValue = event.target.value;
+      
+        // Verifica si el valor tiene más de 10 dígitos
+        if (inputValue.length > 10) {
+          console.log("Ingrese un máximo de 10 dígitos.");
+          return;
+        }
+      
+        const newNumber = parseInt(inputValue, 10);
+      
+        // Validación: Solo actualiza el estado si newNumber es un número positivo
+        if (!isNaN(newNumber) && newNumber > 0) {
         setCountInStock(Math.min(newNumber, 1000));
+        } else {
+          // Puedes mostrar un mensaje de error o realizar alguna otra acción
+          console.log("Ingrese un número válido y positivo.");
+        }
     };
 
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newNumber = parseInt(event.target.value, 10);
-        setPrice(newNumber);
-    };
+        const inputValue = event.target.value;
+      
+        // Verifica si el valor tiene más de 10 dígitos
+        if (inputValue.length > 8) {
+          console.log("Ingrese un máximo de 10 dígitos.");
+          return;
+        }
+      
+        const newNumber = parseInt(inputValue, 10);
+      
+        // Validación: Solo actualiza el estado si newNumber es un número positivo
+        if (!isNaN(newNumber) && newNumber > 0) {
+          setPrice(newNumber);
+        } else {
+          // Puedes mostrar un mensaje de error o realizar alguna otra acción
+          console.log("Ingrese un número válido y positivo.");
+        }
+      };
+
+
 
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];
@@ -104,7 +150,7 @@ const AddProductosPage = () => {
         setIsHovered(false)
     }
 
-    if (addProdMutation.isLoading) return <p>Loading.....</p>
+    if (addProdMutation.isLoading) return <Loader/>
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 ">
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[700px] w-[600px] rounded-md">

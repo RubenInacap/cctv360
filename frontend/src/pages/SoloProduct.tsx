@@ -33,12 +33,12 @@ const SoloProduct = () => {
                     <p className="mb-2 text-gray-700 dark:text-gray-300">
                         <span className="font-semibold">Stock disponible:</span> {data.contar_stock}
                     </p>
-                    {/* Botón de añadir al carrito */}
                     <button
                         onClick={() => addToCart(data)}
-                        className="mb-2 inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className={`mb-2 inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${data.contar_stock === 0 && 'opacity-50 cursor-not-allowed'}`}
+                        disabled={data.contar_stock === 0}
                     >
-                        Añadir al carrito
+                        {data.contar_stock === 0 ? 'Sin Stock' : 'Añadir al carrito'}
                         <svg
                             aria-hidden="true"
                             className="w-4 h-4 ml-2 -mr-1"

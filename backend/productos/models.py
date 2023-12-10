@@ -8,7 +8,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=100, blank=True)
     image = models.ImageField(default="placeholder.png")
     categoria = models.CharField(max_length=100, blank=True)
-    descripcion = models.CharField(max_length=100, blank=True)
+    descripcion = models.CharField(max_length=300, blank=True)
     valoracion = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     numero_reviews = models.IntegerField(default=0)
     precio = models.DecimalField(max_digits=10 , decimal_places=2, null=True, blank=True)

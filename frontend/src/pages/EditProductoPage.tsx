@@ -72,29 +72,60 @@ const EditProductosPage = () => {
     close()
     };
 
-    const handleNameChange= (event: ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
-    };
-
+    const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const valueName = event.target.value;
+        if (valueName.length <= 25) {
+          setName(valueName);
+        } else {
+          // Muestra un mensaje de advertencia o realiza alguna acción adicional
+          console.log("¡El nombre no puede tener más de 100 caracteres!");
+        }
+      };
     const handleCategoryChange = (event: ChangeEvent<HTMLSelectElement>) => {
         setCategory(event.target.value);
     };
+
     const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setDescription(event.target.value);
+        const valueName = event.target.value;
+        if (valueName.length <= 300) {
+          setDescription(valueName);
+        } else {
+          // Muestra un mensaje de advertencia o realiza alguna acción adicional
+          console.log("La descripcion no puede tener más de 300 caracteres!");
+        }
     };
 
     const handleCountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newNumber = parseInt(event.target.value, 10);
-        setCountInStock(newNumber);
+        // Set countInStock to a maximum value of 1000
+        setCountInStock(Math.min(newNumber, 1000));
     };
 
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newNumber = parseInt(event.target.value, 10);
-        setPrecio(newNumber);
-    };
+        const inputValue = event.target.value;
+      
+        // Verifica si el valor tiene más de 10 dígitos
+        if (inputValue.length > 8) {
+          console.log("Ingrese un máximo de 10 dígitos.");
+          return;
+        }
+      
+        const newNumber = parseInt(inputValue, 10);
+      
+        // Validación: Solo actualiza el estado si newNumber es un número positivo
+        if (!isNaN(newNumber) && newNumber > 0) {
+          setPrecio(newNumber);
+        } else {
+          // Puedes mostrar un mensaje de error o realizar alguna otra acción
+          console.log("Ingrese un número válido y positivo.");
+        }
+      };
 
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+
+      const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files && event.target.files[0];
+    
+        // Check if a file is selected
         if (file) {
             setImage(file);
             const reader = new FileReader();
@@ -102,6 +133,10 @@ const EditProductosPage = () => {
                 setFilePreview(reader.result as string);
             };
             reader.readAsDataURL(file);
+        } else {
+            // Handle the case where no file is selected
+            setImage(null);
+            setFilePreview('');
         }
     };
 
