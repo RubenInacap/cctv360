@@ -53,7 +53,7 @@ const EditProductosPage = () => {
         navigate('/admin')
     },
     onError: (error) => {
-        toast.error("Error!")
+        toast.error("Error!, Procure Actualizar la imagen")
         console.error(error);
     },
     });

@@ -20,6 +20,7 @@ const SoloOrder = () => {
 
     if (isError) return toast.error("Error!");
     if (isLoading) return <Loader />;
+    console.log(data.delivered_at)
 
     return (
         <div className="overflow-x-auto container mx-auto px-4 pt-11 text-gray-800 dark:text-gray-300">
@@ -33,10 +34,10 @@ const SoloOrder = () => {
                             Entregado
                         </th>
                         <th scope="col" className="px-4 py-3">
-                            Created at
+                            Fecha de Creacion
                         </th>
                         <th scope="col" className="px-4 py-3">
-                            Delivered at
+                            Fecha de Entrega
                         </th>
                         <th scope="col" className="px-4 py-3">
                             Ciudad
@@ -74,8 +75,10 @@ const SoloOrder = () => {
                             )}
                         </td>
                         <td className="px-4 py-3">
-                            {data && data.delivered_at !== undefined || null && (
-                                <>{data.delivered_at.slice(0, 10)}</>
+                            {data && data.delivered_at !== undefined && data.delivered_at !== null && (
+                                <>
+                                    {new Date(data.delivered_at).toLocaleString()}
+                                </>
                             )}
                         </td>
                         <td className="px-4 py-3">

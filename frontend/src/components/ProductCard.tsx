@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Producto } from "../Interfaces";
 import { useCartStore } from "../store/cart";
 import Rating from "./Rating";
-
+import { toast } from "react-hot-toast";
 interface Props {
     productos: Producto
 };
@@ -48,7 +48,10 @@ const ProductCard = ({ productos }: Props) => {
                     </p>
 
                     <button
-                        onClick={() => addToCart(productos)}
+
+                        onClick={() => {addToCart(productos)
+                        toast.success("Producto Agregado")}
+                        }
                         className={`mb-2 inline-flex items-center mx-3 px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ${productos.contar_stock === 0 && 'opacity-50 cursor-not-allowed'}`}
                         disabled={productos.contar_stock === 0}
                     >

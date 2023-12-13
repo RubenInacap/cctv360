@@ -93,6 +93,7 @@ def create_product(request):
 
 
 
+
 @api_view(['PUT'])
 def edit_product(request, pk):
     producto = Producto.objects.get(pk=pk)
@@ -104,6 +105,7 @@ def edit_product(request, pk):
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(serializer.data, status=status.HTTP_401_UNAUTHORIZED)
+
     
 
 @api_view(['DELETE'])
