@@ -11,7 +11,7 @@ class Producto(models.Model):
     descripcion = models.CharField(max_length=300, blank=True)
     valoracion = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     numero_reviews = models.IntegerField(default=0)
-    precio = models.DecimalField(max_digits=10 , decimal_places=2, null=True, blank=True)
+    precio = models.DecimalField(max_digits=10 , decimal_places=0, null=True, blank=True)
     contar_stock = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
 

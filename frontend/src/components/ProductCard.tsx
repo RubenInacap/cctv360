@@ -11,6 +11,8 @@ const ProductCard = ({ productos }: Props) => {
 
     const addToCart = useCartStore(state => state.addToCart)
 
+
+
     return (
         <div>
             <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -22,7 +24,7 @@ const ProductCard = ({ productos }: Props) => {
                     />
                 </Link>
                 <div className="p-5 ">
-                    <Link to={`/productos/${productos.nombre}`}>
+                    <Link to={`/productos/${productos.slug}`}>
                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                             {productos.nombre}
                         </h5>
@@ -35,8 +37,10 @@ const ProductCard = ({ productos }: Props) => {
 
 
                                 <span className="ml-1 text-gray-500 dark:text-gray-400">
-                                    {productos.valoracion === null && 
-                                        <Rating value={productos.valoracion} />
+                                    {productos.valoracion !== null && 
+                                        <Rating 
+                                        value={productos.valoracion} />
+                                        
                                     }
                                 </span>
 

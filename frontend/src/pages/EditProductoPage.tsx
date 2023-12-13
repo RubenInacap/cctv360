@@ -212,7 +212,7 @@ const EditProductosPage = () => {
                                     htmlFor="count_in_stock"
                                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                 >
-                                    Contar Stock
+                                    Stock
                                 </label>
                                 <input
                                     value={contar_stock}
@@ -222,6 +222,7 @@ const EditProductosPage = () => {
                                     id="count_in_stock"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Stock de su producto"
+                                    min="0"
                                 />
                             </div>
 
@@ -240,6 +241,7 @@ const EditProductosPage = () => {
                                     id="price"
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="$2999"
+                                    min="0"
                                 />
                             </div>
 
